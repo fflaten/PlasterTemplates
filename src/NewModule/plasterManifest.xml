@@ -44,6 +44,19 @@
                     value="MIT"/>
         </parameter>
 
+        <parameter name='ModuleLayout'
+                   type='choice'
+                   prompt='Select a layout:'
+                   default='0'
+                   store='text' >
+            <choice label='&amp;None'
+                    help="Empty default layout."
+                    value="None"/>
+            <choice label='&amp;Public and Private folders for functions'
+                    help="Module layout with Public and Private-folders for functions. Based on RamblingCookie's modules."
+                    value="PublicPrivate"/>
+        </parameter>
+
         <parameter name='Options'
                    type='multichoice'
                    prompt='Select one or more of the following tooling options:'
@@ -92,7 +105,12 @@
                            author='$PLASTER_PARAM_FullName'
                            description='$PLASTER_PARAM_ModuleDesc'
                            encoding='UTF8-NoBOM'/>
-
+        <file condition='$PLASTER_PARAM_ModuleLayout -eq "PublicPrivate"'
+              source=''
+              destination='src\Public'/>
+        <file condition='$PLASTER_PARAM_ModuleLayout -eq "PublicPrivate"'
+              source=''
+              destination='src\Private'/>
         <file condition='$PLASTER_PARAM_Options -contains "Git"'
               source='_gitignore'
               destination='.gitignore' />
@@ -101,7 +119,11 @@
               destination='' />
         <file source='ReleaseNotes.md'
               destination=''/>
-        <file source='src\Module.psm1'
+        <file condition='$PLASTER_PARAM_ModuleLayout -eq "PublicPrivate"'
+              source='src\Module.PublicPrivate.psm1'
+              destination='src\${PLASTER_PARAM_ModuleName}.psm1'/>
+        <file condition='$PLASTER_PARAM_ModuleLayout -ne "PublicPrivate"'
+              source='src\Module.psm1'
               destination='src\${PLASTER_PARAM_ModuleName}.psm1'/>
         <file source='ScriptAnalyzerSettings.psd1'
               destination=''/>
