@@ -1,7 +1,6 @@
 MIT License
 
-Copyright (c) 2018 Frode Flaten
-Copyright (c) Microsoft Corporation for parts of the project, incl. NewModule-template
+Copyright (c) <%=$PLASTER_YEAR%> <%=$PLASTER_PARAM_FullName%>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
